@@ -15,19 +15,14 @@ exports.bookTable = async (req, res) => {
   if (!tableChairs) return res.status(404).json({ message: "Not found" });
 
   let { tables, chairs, table } = TotalTables[0];
+
+
   if (tables.length === 0)
   return res
   .status(404)
-  .json({ error: "Sorry there are no available tables" });
+  .json({ error: "Sorry no available tables join the qeuee with" });
   
-  if (number > tables.length)
-    return res
-      .status(404)
-      .json({
-        error:
-          "The available tables less than the number of people you are requesting",
-      });
-
+  
   let tablesToBook = 0;
   if (number <= 4) {
     tablesToBook += 1;
@@ -44,20 +39,28 @@ exports.bookTable = async (req, res) => {
   } else {
     console.log("error");
   }
-
+  
+  
   let selectedTables = {};
   let bookedTable=[]
-
+  
   selectedTables = tables.slice(-tablesToBook);
   for (let i=0; i<selectedTables.length; i++){
-   bookedTable.push(selectedTables)
+    bookedTable.push(selectedTables)
   }
-//   console.log(bookedTable, tables.length);
+
+  let customersLeft = number % 4;
+  if (number > tables.length)
+    return res
+      .status(404)
+      .json({
+        error:
+          `${tablesToBook} requied: Please head to ${selectedTables} and ${customersLeft} are required to wait in a queue`,
+      });
 
   const book = table - tablesToBook;
   const totalchairs = chairs.length;
   const chair = totalchairs - number;
-  const first = tables[0];
 
   // Auto Label
   let tablesLeft = [];

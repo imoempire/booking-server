@@ -2,23 +2,10 @@ const { isValidObjectId } = require("mongoose");
 const SeatModel = require("../Model");
 const Customers = require("../Model/customer");
 
-exports.Home = async (req, res) => {
-  try {
-    const items = await SeatModel.find().lean().exec();
-    const tablesLeft = await SeatModel.find({});
-    const { tables, chairs } = tablesLeft[0];
-
-   //  console.log(typeof Number(tables));
-    res.json({ tables, chairs });
-  } catch (err) {
-    res.status(500).end(err);
-  }
-};
-
 exports.bookTable = async (req, res) => {
   const { name, contact, customers } = req.body;
   const TotalTables = await SeatModel.find({});
-  let itemId = "6353dbe004b349cda76fa722";
+  let itemId = "635459b2fd6c7ad16699e803";
 
   let number = Number(customers);
   if (!isValidObjectId(itemId))

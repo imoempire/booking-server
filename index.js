@@ -10,7 +10,9 @@ server.use(cors({origin: "http://localhost:6840"}))
 server.use(express.json())
 server.use(routers)
 
-server.get('/', Home)
+server.get('/', (req, res)=>{
+  res.json({success: true});
+})
 
 const port = process.env.PORT || 8560
 

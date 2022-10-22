@@ -9,7 +9,7 @@ exports.BookingValidator = [
     .not()
     .isEmpty()
     .withMessage("Please we need your contact"),
-    check("number").trim().not().isEmpty().withMessage("Please we need number of people you are booking for!")
+    check("customers").trim().not().isEmpty().withMessage("Please we need number of people you are booking for!")
 ];
 
 exports.tablesChairsValidator = [

@@ -11,10 +11,13 @@ const seatSchema = new Schema({
     type: Number,
     required: true,
   },
-  status: {
-    type: String,
-    
+  tables: {
+    type: Array,
+  },
+  chairs: {
+    type: Array
   }
+
 });
 
 const SeatModel = mongoose.model("Seats", seatSchema);

@@ -12,7 +12,7 @@ const customerSchema = new Schema({
     type: String,
     required: true,
   },
-  number: {
+  customers: {
     type: Number,
     required: true,
   }

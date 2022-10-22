@@ -14,7 +14,7 @@ exports.bookTable = async (req, res) => {
   const tableChairs = await SeatModel.findById(itemId);
   if (!tableChairs) return res.status(404).json({ message: "Not found" });
 
-  let { tables, chairs, table } = TotalTables[0];
+  let { tables, chairs, table, chairsPer } = TotalTables[0];
 
 
   if (tables.length === 0)
@@ -35,7 +35,7 @@ exports.bookTable = async (req, res) => {
   } else if (number <= 20) {
     tablesToBook += 5;
   } else if (number <= 24) {
-    tablesToBook += 5;
+    tablesToBook += 6;
   } else {
     console.log("error");
   }
@@ -49,8 +49,10 @@ exports.bookTable = async (req, res) => {
     bookedTable.push(selectedTables)
   }
 
-  let customersLeft = number % 4;
-  if (number > tables.length)
+  let customersLeft = "";
+  const tableLeft = tables.length
+  if (number > tableLeft)
+   customersLeft = number / chairsPer(tableLeft);
     return res
       .status(404)
       .json({

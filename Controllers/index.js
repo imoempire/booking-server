@@ -57,7 +57,7 @@ exports.getSeats = async (req, res) => {
 
 exports.updateSeats = async (req, res) => {
   const { table, chairsPer } = req.body;
-  // console.log(typeof table);
+  console.log(table, chairsPer);
 
   const {itemId} = req.params;
   if (!isValidObjectId(itemId)) 

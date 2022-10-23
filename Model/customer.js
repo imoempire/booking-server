@@ -15,6 +15,9 @@ const customerSchema = new Schema({
   customers: {
     type: Number,
     required: true,
+  },
+  bookedTable: {
+    type: String,
   }
 
 });

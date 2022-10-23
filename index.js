@@ -3,7 +3,7 @@ require("dotenv").config();
 require("./DB/index")
 const routers = require('./Router/index')
 const cors = require('cors');
-const { Home } = require('./Controllers/customer');
+// const { Home } = require('./Controllers/customer');
 const server = express();
 
 server.use(cors({origin: "http://localhost:6840"}))

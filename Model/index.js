@@ -17,7 +17,6 @@ const seatSchema = new Schema({
   chairs: {
     type: Array
   }
-
 });
 
 const SeatModel = mongoose.model("Seats", seatSchema);

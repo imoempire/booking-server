@@ -20,12 +20,10 @@ exports.bookTable = async (req, res) => {
   if (tables.length === 0)
     return res
       .status(404)
-      .json({ error: "Sorry no available tables join the qeuee with" });
+      .json({ error: "Sorry no available tables check in an hour" });
 
   let tablesToBook = 0;
   let customersnumbers = number;
-
-  
 
   if (customersnumbers <= 4) {
     tablesToBook += 1;
@@ -48,32 +46,33 @@ exports.bookTable = async (req, res) => {
   }
   let selectedTables = {};
   let bookedTable = [];
+  let bookChairs = customersnumbers
 
   selectedTables = tables.slice(-tablesToBook);
   for (let i = 0; i < selectedTables.length; i++) {
     bookedTable.push(selectedTables);
   }
 
-  let book = 0
+  let book = 0;
 
-   book = table - tablesToBook;
+  book = table - tablesToBook;
   const totalchairs = chairs.length;
   const chair = totalchairs - number;
-  
+
   const tableLeft = tables.length;
   let customersLeft = "";
   if (tablesToBook > tableLeft) {
-    book = 0;
     customersLeft = customers - tableLeft * chairsPer;
+    customersGoing = customers - customersLeft
     const queueNo = contact.slice(-2) + Math.floor(Math.random());
     // console.log(queueNo);
     // const newQueue = await QueueModel({name, queueNo })
+    // book = 0;
     return res.status(404).json({
-      error: `${tablesToBook} table(s) requied: But only ${tableLeft} available: head to ${selectedTables} and ${customersLeft} s required to wait till next available 
+      error: `${tablesToBook} table(s) requied: But only ${tableLeft} available: ${customersGoing} head to ${selectedTables} and ${customersLeft} customer(s) are required to wait till next available 
       table, QUEUE No ${queueNo} `,
     });
   }
-  console.log(book);
 
   // Auto Label
   let tablesLeft = [];
@@ -87,18 +86,20 @@ exports.bookTable = async (req, res) => {
 
   // Update SeatModel
   tableChairs.table = book;
-  if(tablesToBook> tableLeft){
-    tableChairs.table = 0
-  }
   tableChairs.chairsPer = chairsPer;
   tableChairs.tables = tablesLeft;
   tableChairs.chairs = chairsLeft;
+
+  let bookedTables = bookedTable;
+  let Totaltab = bookedTables.length
 
   const newCustomer = await Customers({
     name,
     contact,
     customers,
-    bookedTable,
+    bookedTables,
+    bookChairs,
+    Totaltab
   });
 
   await tableChairs.save();
@@ -107,10 +108,12 @@ exports.bookTable = async (req, res) => {
   res.json({
     customer: {
       id: newCustomer._id,
+      bookedTables,
       name,
       contact,
       customers,
-      bookedTable,
+      bookChairs,
+      Totaltab
     },
     message: `${tablesToBook} table(s) requied: Please head to ${selectedTables}`,
     success: true,
@@ -128,6 +131,9 @@ exports.getCustomers = async (req, res) => {
       name: customer.name,
       contact: customer.contact,
       customers: customer.customers,
+      bookedTables: customer.bookedTables,
+      bookChairs: customer.bookChairs,
+      Totaltab: customer.Totaltab
     })),
     customersCount,
   });

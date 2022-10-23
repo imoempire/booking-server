@@ -16,10 +16,15 @@ const customerSchema = new Schema({
     type: Number,
     required: true,
   },
-  bookedTable: {
+  bookedTables: {
     type: Array,
+  },
+  bookChairs: {
+    type: Number,
+  },
+  Totaltab: {
+    type: Number,
   }
-
 });
 
 const Customers = mongoose.model("Customer", customerSchema);

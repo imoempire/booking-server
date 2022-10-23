@@ -21,23 +21,23 @@ exports.bookTable = async (req, res) => {
       .status(404)
       .json({ error: "Sorry no available tables join the qeuee with" });
 
-  let tablesToBook = "";
+  let tablesToBook = 0;
   if (number <= 4) {
-    tablesToBook = 1;
+    tablesToBook += 1;
   } else if (number <= 8) {
-    tablesToBook = 2;
+    tablesToBook += 2;
   } else if (number <= 12) {
-    tablesToBook = 3;
+    tablesToBook += 3;
   } else if (number <= 16) {
-    tablesToBook = 4;
+    tablesToBook += 4;
   } else if (number <= 20) {
-    tablesToBook = 5;
+    tablesToBook += 5;
   } else if (number <= 24) {
-    tablesToBook = 6;
+    tablesToBook += 6;
   } else if (number <= 28) {
-    tablesToBook = 7;
+    tablesToBook += 7;
   } else if (number <= 32) {
-    tablesToBook = 8;
+    tablesToBook += 8;
   } else {
     console.log("error");
   }
@@ -51,9 +51,12 @@ exports.bookTable = async (req, res) => {
   }
 
   const tableLeft = tables.length;
-  if (number > tableLeft) {
+  let customersLeft = ''
+  if (tablesToBook > tableLeft) {
+    customersLeft = customers - (tableLeft*chairsPer)
     return res.status(404).json({
-      error: `${tablesToBook} requied: But only ${tableLeft} available: head ${selectedTables} and the rest are required to wait in a queue`,
+      error: `${tablesToBook} table(s) requied: But only ${tableLeft} available: head to ${selectedTables} and ${customersLeft} s required to wait till next available 
+      table, `,
     });
   }
 
@@ -95,7 +98,7 @@ exports.bookTable = async (req, res) => {
       customers,
       bookedTable,
     },
-    message: `${tablesToBook} requied: Please head to ${selectedTables}`,
+    message: `${tablesToBook} table(s) requied: Please head to ${selectedTables}`,
     success: true,
   });
 };

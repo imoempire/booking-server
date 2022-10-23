@@ -17,7 +17,7 @@ const customerSchema = new Schema({
     required: true,
   },
   bookedTable: {
-    type: String,
+    type: Array,
   }
 
 });

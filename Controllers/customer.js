@@ -37,6 +37,10 @@ exports.bookTable = async (req, res) => {
     tablesToBook = 5;
   } else if (number <= 24) {
     tablesToBook = 6;
+  }else if (number <= 28) {
+    tablesToBook = 7;
+  }else if (number <= 32) {
+    tablesToBook = 8;
   } else {
     console.log("error");
   }

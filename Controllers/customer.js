@@ -52,7 +52,7 @@ exports.bookTable = async (req, res) => {
   let customersLeft = "";
   const tableLeft = tables.length
   if (number > tableLeft)
-   customersLeft = number / chairsPer(tableLeft);
+   customersLeft = number - chairsPer(tableLeft);
     return res
       .status(404)
       .json({

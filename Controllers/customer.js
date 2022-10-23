@@ -51,7 +51,7 @@ exports.bookTable = async (req, res) => {
 
   let customersLeft = "";
   const tableLeft = tables.length
-  if (number > tableLeft)
+  if (number > tableLeft){
    customersLeft = number - chairsPer(tableLeft);
     return res
       .status(404)
@@ -59,7 +59,7 @@ exports.bookTable = async (req, res) => {
         error:
           `${tablesToBook} requied: Please head to ${selectedTables} and ${customersLeft} are required to wait in a queue`,
       });
-
+}
   const book = table - tablesToBook;
   const totalchairs = chairs.length;
   const chair = totalchairs - number;

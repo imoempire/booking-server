@@ -6,7 +6,7 @@ const cors = require('cors');
 const { Home } = require('./Controllers/customer');
 const server = express();
 
-server.use(cors({origin: "https://mybookingapps.netlify.app"}))
+server.use(cors({origin: "http://localhost:6840"}))
 server.use(express.json())
 server.use(routers)
 
